@@ -10,9 +10,70 @@ const outputPath = path.join(OUTPUT_DIR, "team.html");
 
 const render = require("./lib/htmlRenderer");
 
+let employees = [];
+
+startEmployees();
+
+function startEmployees() {
+    inquirer.prompt( [
+        {
+            type: "input",
+            message: "What is your team member's name?",
+            name: "name"
+        },
+        {
+            type: "input",
+            message: "Enter team member's email",
+            name: "email"
+        },
+        {
+            type: "list",
+            message: "Specify team member's title",
+            choices: ["Manager", "Engineer", "Intern"],
+            name: "title"
+        }
+    ])
+    .then(function nextQuestion({title}) {
+        if (title === "Manager") {
+            inquirer.prompt({
+                type: "input",
+                message: "What is your manager's office number?",
+                name: "officeNumber"
+            })
+            //moreMembers();
+        }
+        else if (title === "Engineer") {
+            inquirer.prompt({
+                type: "input",
+                message: "Enter engineer's github username",
+                name: "github"
+            })
+        }
+        else {
+            inquirer.prompt({
+                type: "input",
+                message: "Enter intern's school",
+                name: "school"
+            })
+        }
+    })
+    //.then(function addMember() {
+        //inquirer.prompt({
+            //type: "list",
+           // message: "Would you like to add another team member?",
+            //choices: [
+                //"yes",
+                //"no"
+            //]
+        //})
+    //})
+}
+
 
 // Write code to use inquirer to gather information about the development team members,
 // and to create objects for each team member (using the correct classes as blueprints!)
+
+
 
 // After the user has input all employees desired, call the `render` function (required
 // above) and pass in an array containing all employee objects; the `render` function will
