@@ -37,7 +37,7 @@ function askManager() {
             message: "Enter manager's office number",
             name: "officeNumber"
         }
-    ]).then(function(data) {
+    ]).then(data => {
         const manager = new Manager(data.name, data.id, data.email, data.officeNumber)
         console.log(manager);
         employees.push(manager)
@@ -59,75 +59,77 @@ function nextEmployee() {
         }
     ]).then(function({ employeeType }){
         if(employeeType === "Engineer") {
-            console.log("hi!");
+            askEngineer();
         }
         else if(employeeType === "Intern") {
-            console.log("intern things")
+            askIntern();
         }
         else {
-            console.log("no more!")
+            render(employees);
         }
     })
 }
-//function askQuestions() {
-        //inquirer.prompt( [
-            //{
-                //type: "input",
-                //message: "What is your team member's name?",
-                //name: "name"
-            //},
-            //{
-                //type: "input",
-                //message: "Enter team member's ID",
-                //name: "id"
-            //},
-            //{
-                //type: "input",
-                //message: "Enter team member's email",
-                //name: "email"
-            //},
-            //{
-                //type: "list",
-                //message: "Specify team member's title",
-                //choices: ["Engineer", "Intern"],
-                //name: "title"
-            //}
-        //])
-        //.then(function nextQuestion({title}) {
-            //if (title === "Engineer") {
-                //inquirer.prompt({
-                    //type: "input",
-                    //message: "Enter engineer's github username",
-                    //name: "github"
-                //}).then(function(data) {
-                    //const engineer = new Engineer(data.name, data.id, data.email, data.github)
-                    //console.log(engineer);
-                    //employees.push(engineer)
-
-                    //askQuestions();
-                //})
-            //}
-            //else {
-                //inquirer.prompt({
-                    //type: "input",
-                    //message: "Enter intern's school",
-                    //name: "school"
-                //})
-            //}
-            
-        //})
-    //}
-    //function addMembers() {
-        //inquirer.prompt({
-            //type: "list",
-            //message: "Would you like to add another team member?",
-            //choices: [
-                //"yes",
-                //"no"
-            //]
-        //})
-    //}
-
+function askEngineer() {
+    inquirer.prompt( [
+        {
+            type: "input",
+            message: "What is your team member's name?",
+            name: "name"
+        },
+        {
+            type: "input",
+            message: "Enter team member's ID",
+            name: "id"
+        },
+        {
+            type: "input",
+            message: "Enter team member's email",
+            name: "email"
+        },
+        {
+            type: "input",
+            message: "Enter team member's github",
+            name: "github"
+        }
+        ]).then(data => {
+            const engineer = new Engineer(data.name, data.id, data.email, data.github)
+            console.log(engineer);
+            employees.push(engineer)
+    
+            nextEmployee();
+        })
+    }
+function askIntern() {
+    inquirer.prompt( [
+        {
+            type: "input",
+            message: "What is your team member's name?",
+            name: "name"
+        },
+        {
+            type: "input",
+            message: "Enter team member's ID",
+            name: "id"
+        },
+        {
+            type: "input",
+            message: "Enter team member's email",
+            name: "email"
+        },
+        {
+            type: "input",
+            message: "Enter team member's school",
+            name: "school"
+        }
+        ]).then(data => {
+            const intern = new Intern(data.name, data.id, data.email, data.school)
+            console.log(intern);
+            employees.push(intern)
+            //console.log(employees);
+        
+            nextEmployee();
+        })
+    }
 
 
 // Write code to use inquirer to gather information about the development team members,
