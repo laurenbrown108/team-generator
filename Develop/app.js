@@ -65,7 +65,12 @@ function nextEmployee() {
             askIntern();
         }
         else {
-            render(employees);
+            const newHtml = render(employees);
+            
+            fs.writeFile(outputPath, newHtml, err => {
+            if (err)
+            throw err
+            })
         }
     })
 }
