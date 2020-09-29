@@ -4,6 +4,8 @@
 
 This application was designed to allow the user to generate a team profile using Node JS. The user is presented with a series of prompts regarding their team members. Once they are finished answering the questions, an HTML file is generated that displays all the information they entered for each employee. 
 
+![screenshot](https://github.com/laurenbrown108/team-generator/blob/master/Assets/team_gen.png?raw=true)
+
 ## Technologies used
 
 Node JS, Javascript, HTML, Bootstrap
