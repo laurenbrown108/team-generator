@@ -48,7 +48,7 @@ function askManager() {
     })
 }
 //add employee or create output if finished
-function nextEmployee() {
+const nextEmployee = () => {
     inquirer.prompt([
         {
             type: "list",
@@ -61,7 +61,7 @@ function nextEmployee() {
             name: "employeeType"
         }
     //determines questions to ask based off prompt choice
-    ]).then(function({ employeeType }){
+    ]).then(({ employeeType }) => {
         if(employeeType === "Engineer") {
             askEngineer();
         }
@@ -80,7 +80,7 @@ function nextEmployee() {
     })
 }
 //prompts for engineer
-function askEngineer() {
+const askEngineer = () => {
     inquirer.prompt( [
         {
             type: "input",
@@ -112,7 +112,7 @@ function askEngineer() {
         })
     }
 //prompts for intern
-function askIntern() {
+const askIntern = () => {
     inquirer.prompt( [
         {
             type: "input",
