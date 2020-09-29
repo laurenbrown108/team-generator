@@ -9,65 +9,125 @@ const OUTPUT_DIR = path.resolve(__dirname, "output");
 const outputPath = path.join(OUTPUT_DIR, "team.html");
 
 const render = require("./lib/htmlRenderer");
+const { listenerCount } = require("process");
 
 let employees = [];
 
-startEmployees();
+askManager();
 
-function startEmployees() {
-    inquirer.prompt( [
+function askManager() {
+    inquirer.prompt([
         {
             type: "input",
-            message: "What is your team member's name?",
+            message: "Enter manager's name",
             name: "name"
+        },
+        { 
+            type: "input",
+            message: "Enter manager's ID",
+            name: "id"
         },
         {
             type: "input",
-            message: "Enter team member's email",
+            message: "Enter manager's email",
             name: "email"
         },
         {
+            type: "input",
+            message: "Enter manager's office number",
+            name: "officeNumber"
+        }
+    ]).then(function(data) {
+        const manager = new Manager(data.name, data.id, data.email, data.officeNumber)
+        console.log(manager);
+        employees.push(manager)
+
+        nextEmployee();
+    })
+}
+function nextEmployee() {
+    inquirer.prompt([
+        {
             type: "list",
-            message: "Specify team member's title",
-            choices: ["Manager", "Engineer", "Intern"],
-            name: "title"
+            message: "Please select next employee",
+            choices: [
+                "Intern",
+                "Engineer",
+                "No more employees"
+            ],
+            name: "employeeType"
         }
-    ])
-    .then(function nextQuestion({title}) {
-        if (title === "Manager") {
-            inquirer.prompt({
-                type: "input",
-                message: "What is your manager's office number?",
-                name: "officeNumber"
-            })
-            //moreMembers();
+    ]).then(function({ employeeType }){
+        if(employeeType === "Engineer") {
+            console.log("hi!");
         }
-        else if (title === "Engineer") {
-            inquirer.prompt({
-                type: "input",
-                message: "Enter engineer's github username",
-                name: "github"
-            })
+        else if(employeeType === "Intern") {
+            console.log("intern things")
         }
         else {
-            inquirer.prompt({
-                type: "input",
-                message: "Enter intern's school",
-                name: "school"
-            })
+            console.log("no more!")
         }
     })
-    //.then(function addMember() {
+}
+//function askQuestions() {
+        //inquirer.prompt( [
+            //{
+                //type: "input",
+                //message: "What is your team member's name?",
+                //name: "name"
+            //},
+            //{
+                //type: "input",
+                //message: "Enter team member's ID",
+                //name: "id"
+            //},
+            //{
+                //type: "input",
+                //message: "Enter team member's email",
+                //name: "email"
+            //},
+            //{
+                //type: "list",
+                //message: "Specify team member's title",
+                //choices: ["Engineer", "Intern"],
+                //name: "title"
+            //}
+        //])
+        //.then(function nextQuestion({title}) {
+            //if (title === "Engineer") {
+                //inquirer.prompt({
+                    //type: "input",
+                    //message: "Enter engineer's github username",
+                    //name: "github"
+                //}).then(function(data) {
+                    //const engineer = new Engineer(data.name, data.id, data.email, data.github)
+                    //console.log(engineer);
+                    //employees.push(engineer)
+
+                    //askQuestions();
+                //})
+            //}
+            //else {
+                //inquirer.prompt({
+                    //type: "input",
+                    //message: "Enter intern's school",
+                    //name: "school"
+                //})
+            //}
+            
+        //})
+    //}
+    //function addMembers() {
         //inquirer.prompt({
             //type: "list",
-           // message: "Would you like to add another team member?",
+            //message: "Would you like to add another team member?",
             //choices: [
                 //"yes",
                 //"no"
             //]
         //})
-    //})
-}
+    //}
+
 
 
 // Write code to use inquirer to gather information about the development team members,
